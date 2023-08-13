@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/view-ads.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+
+<div class="searchSection">
+  <div class="d-flex row">
+    <div class="col-12 col-md-4">
+      <select name="searchByCategory" id="searchByCategory" class="searchSelect form-select">
+        <option value="normal" selected>Search by Category</option>
+        <option th:each="category : ${categories}" th:value="${category.id}"
+                th:text="${category.category}" ></option>
+      </select>
+    </div>
+    <form class="d-flex col-12 col-md-8 my-3 my-md-0">
+      <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-custom" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<!--CARDS-->
+<div class="d-flex justify-content-center flex-wrap">
+
+<!--  <div class="each" >-->
+    <div th:each="ad : ${ads}" class="card m-2" style="width: 250px;" onClick="handleClick(${ad.id})" th:attr="id=${'optionsModal' + ad.id}">
+      <img th:src="${ad.getMainPhoto()}" class="card-img-top" alt="..." width="200"
+           height="200">
+      <div class="card-body">
+        <h5 class="card-text" th:text="${ad.title}"></h5>
+        <p class="card-text my-0"><strong>$<span th:text="${ad.price}"></span></strong></p>
+        <p class="card-text my-0"><small><span th:text="${ad.getTruncatedDescription()}"></span></small></p>
+      </div>
+    </div>
+<!--  </div>-->
+
+
+</div>
+
+</body>
+</html>
