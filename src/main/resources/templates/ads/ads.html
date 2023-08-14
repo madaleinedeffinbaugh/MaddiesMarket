@@ -26,12 +26,12 @@
 <div class="d-flex justify-content-center flex-wrap">
 
 <!--  <div class="each" >-->
-    <div th:each="ad : ${ads}" class="card m-2" style="width: 250px;" onClick="handleClick(${ad.id})" th:attr="id=${'optionsModal' + ad.id}">
+    <div th:each="ad : ${ads}" class="card m-2 clickable-div" style="width: 250px;"  onclick="handleClick(this)" th:attr="id=${ad.id}">
       <img th:src="${ad.getMainPhoto()}" class="card-img-top" alt="..." width="200"
            height="200">
       <div class="card-body">
         <h5 class="card-text" th:text="${ad.title}"></h5>
-        <p class="card-text my-0"><strong>$<span th:text="${ad.price}"></span></strong></p>
+        <p class="card-text my-0"><strong>$<span th:text="${ad.getFormattedPrice()}"></span></strong></p>
         <p class="card-text my-0"><small><span th:text="${ad.getTruncatedDescription()}"></span></small></p>
       </div>
     </div>
@@ -40,5 +40,11 @@
 
 </div>
 
+<script>
+  function handleClick(element){
+    var id = element.getAttribute("id");
+    window.location.href = "/viewAd/" + id;
+  }
+</script>
 </body>
 </html>
