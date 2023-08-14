@@ -7,16 +7,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.maddiesmarket.springadlister.models.Ad.adCondition.*;
-import static com.maddiesmarket.springadlister.models.Ad.adStatus.available;
+import static com.maddiesmarket.springadlister.models.Ad.adStatus.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-
 @Entity
 @Table(name = "spring_ads")
 public class Ad {
@@ -73,7 +74,7 @@ public class Ad {
 
     public String getMainPhoto() {
         if (adImages.size() < 1) {
-            return "https://cdn.filestackcontent.com/xMQiaU2zQCK2LvlEpa9A";
+            return "https://cdn.filestackcontent.com/X6wvXICwSlKY6xBgChz4";
         } else {
             return adImages.get(0).getUrl();
         }
@@ -101,6 +102,47 @@ public class Ad {
         }
     }
 
+    public static Ad.adStatus getCorrespondingStatus(String adStatus) {
+        if(adStatus.equals("available")){
+            return available;
+        } else if(adStatus.equals("pending")) {
+            return pending;
+        } else if(adStatus.equals("sold")) {
+            return sold;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public String styleCondition(){
+        if(this.adCondition == brand_new){
+            return "New";
+        } else if(this.adCondition == used_like_new){
+            return "Used - Like New";
+        } else if(this.adCondition == used_good){
+            return "Used - Good";
+        } else if(this.adCondition == used_fair){
+            return "Used - Fair";
+        }else if(this.adCondition == used_poor){
+            return "Used - Poor";
+        }else {
+            return "";
+        }
+    }
+
+    public String styleStatus(){
+        if(this.adStatus == available){
+            return "Available";
+        } else if(this.adStatus == pending){
+            return "Pending Pick up";
+        } else if(this.adStatus == sold){
+            return "Sold";
+        } else {
+            return "";
+        }
+    }
+
     public Ad(String title, String description, Double price, Ad.adCondition adCondition, String city, String state, User user) {
         this.title = title;
         this.description = description;
@@ -112,5 +154,35 @@ public class Ad {
         this.adStatus = available;
         this.archived = false;
         this.user = user;
+    }
+
+    public String getFormattedPrice(){
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(price);
+    }
+
+    public List<String> getCategoryIds(){
+        List<String> names = new ArrayList<>();
+        for(int i = 0; i < getAdCategories().size(); i++){
+            names.add(String.valueOf(getAdCategories().get(i).getCategory().getId()));
+        }
+        return names;
+    }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", adCondition=" + adCondition +
+                ", location='" + location + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", adStatus=" + adStatus +
+                ", archived=" + archived +
+                ", user=" + user +
+                '}';
     }
 }
