@@ -1,6 +1,5 @@
 package com.maddiesmarket.springadlister.models;
 
-import com.maddiesmarket.springadlister.utils.AdConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -81,7 +80,11 @@ public class Ad {
     }
 
     public String getTruncatedDescription(){
-        return description.substring(0,110) + ". . .";
+        if(description.trim().length() < 111){
+            return description;
+        } else {
+            return description.trim().substring(0,110) + ". . .";
+        }
     }
 
     public static Ad.adCondition getCorrespondingCondition(String condition) {
@@ -135,7 +138,7 @@ public class Ad {
         if(this.adStatus == available){
             return "Available";
         } else if(this.adStatus == pending){
-            return "Pending Pick up";
+            return "Pending";
         } else if(this.adStatus == sold){
             return "Sold";
         } else {
@@ -167,22 +170,5 @@ public class Ad {
             names.add(String.valueOf(getAdCategories().get(i).getCategory().getId()));
         }
         return names;
-    }
-
-    @Override
-    public String toString() {
-        return "Ad{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", adCondition=" + adCondition +
-                ", location='" + location + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", adStatus=" + adStatus +
-                ", archived=" + archived +
-                ", user=" + user +
-                '}';
     }
 }
