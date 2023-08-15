@@ -313,7 +313,7 @@ public class AdsController {
     }
 
 
-    @GetMapping("deleteAd/{id}")
+    @GetMapping("/deleteAd/{id}")
     @ResponseBody
     public boolean deleteAd(Model model, @PathVariable Long id) {
         //find ad
