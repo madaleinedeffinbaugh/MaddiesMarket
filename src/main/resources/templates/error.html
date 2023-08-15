@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/error.css}">
+<body>
+
+<div th:replace="partials/navbar :: navbar"/>
+
+
+<div class="error-container">
+    <h1>Oops!</h1>
+    <h4>An unexpected error occurred. Please try again later</h4>
+    <a class="error-link" href="/">Return to the home page</a>
+</div>
+
+
+</body>
+</html>

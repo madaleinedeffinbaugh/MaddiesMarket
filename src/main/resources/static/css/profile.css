@@ -1,0 +1,5 @@
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    background: linear-gradient(to right,#31c5f3, #5558a5);
+}
