@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/view-more.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+<input type="hidden" name="userId" id="userId" th:value="${ad.user.id}">
+<input type="hidden" name="adId" id="adId" th:value="${ad.id}">
+
+<div class="container">
+    <div class="contentContainer row">
+        <section aria-label="Newest Photos" class="col-12 col-lg-7">
+            <div class="carousels" data-carousels>
+                <button class="carousels-button prev" data-carousels-button="prev">←</button>
+                <button class="carousels-button next" data-carousels-button="next">→</button>
+                <ul data-slides>
+                    <li class="slide" th:each="img, iterStat : ${ad.getAdImages()}"
+                        th:data-active="${iterStat.first ? 'data-active': ''}">
+                        <img th:src="${img.getUrl()}" alt="Ad Image">
+                    </li>
+                    <li class="slide" th:if="${ad.getAdImages().size() < 1}" data-active>
+                        <img src="https://cdn.filestackcontent.com/X6wvXICwSlKY6xBgChz4" alt="Ad Image">
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="col-12 col-lg-5 d-flex justify-content-center">
+            <div class="ad-details">
+                <h2 class="text-center  mx-3 keyWords p-3" th:text="${ad.title}"></h2>
+                <div class="d-flex justify-content-between middleGroup">
+                    <h5 class="mx-3">$<span th:text="${ad.getFormattedPrice()}"></span></h5>
+                    <h5 class="mx-3">&bull; <span th:text="${ad.styleStatus()}"
+                                                  th:class="${'status-' + ad.getAdStatus().name()}"></span></h5>
+                </div>
+                <p class="mx-3"><em><span th:text="${ad.city}"></span>, <span th:text="${ad.state}"></span></em></p>
+                <div>
+                    <h5 class="text-center keyWords"><strong>Details</strong></h5>
+                    <p class="mx-3"><strong>Condition: <span th:text="${ad.styleCondition()}"></span></strong></p>
+                    <p class="mx-3"><strong>Description:</strong></p>
+                    <p class="mx-3" th:text="${ad.description}"></p>
+                </div>
+                <div>
+                    <p class="mx-3"><strong>Categories</strong></p>
+                    <div class="d-flex flex-wrap px-2">
+                        <div class="category py-2 px-3 rounded-pill mb-2 mx-1" th:each="cat : ${ad.getAdCategories()}">
+                            <p class="m-0 p-0"><small><span th:text="${cat.category.category}"></span></small>
+                            </p></div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="button" class="btn messageBtn" th:if="${AdBelongsToUser == false}"
+                            th:onclick="handleMessageClick()">Message Seller
+                    </button>
+                    <button type="button" class="btn messageBtn" th:if="${AdBelongsToUser == true}"
+                            th:onclick="handleEditClick()">Edit Ad
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="/js/viewMore.js"></script>
+</body>
+</html>

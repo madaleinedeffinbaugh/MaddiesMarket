@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/edit.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+
+<div class="listing-section-container">
+    <div class="listing-section">
+        <form id="listingForm" th:action="@{/edit-listing}" method="POST">
+            <input type="hidden" name="categories" id="categoriesInput">
+            <input type="hidden" name="photos" id="photosInput">
+            <input type="hidden" name="photosRemove" id="photosRemove">
+            <input type="hidden" name="adId" id="adId" th:value="${ad.id}">
+
+            <h4 class="text-center">Edit Listing</h4>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="mb-3 row form-custom">
+                        <label for="title" class="form-label">Title</label>
+                        <div class="">
+                            <input type="text" class="form-control" name="title" id="title" th:value="${ad.title}">
+                            <div id="titleFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="description" class="form-label">Description</label>
+                        <div>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                      th:text="${ad.description}"></textarea>
+                            <div id="descriptionFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="mb-3 row form-custom">
+                        <div class="col-12 col-md-6">
+                            <label for="price" class="form-label">Price</label>
+                            <div class="">
+                                <input type="number" class="form-control" name="price" id="price"
+                                       th:value="${ad.price}">
+                                <div id="priceFeedback"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="condition" class="form-label">Condition</label>
+                            <div class="">
+                                <select name="condition" id="condition" class=" form-select">
+                                    <option value="">Select a Condition</option>
+                                    <option value="New" th:selected="${ad.getAdCondition().name() == 'brand_new'}">New
+                                    </option>
+                                    <option value="Used - Like New"
+                                            th:selected="${ad.getAdCondition().name() == 'used_like_new'}">Used - Like
+                                        New
+                                    </option>
+                                    <option value="Used - Good"
+                                            th:selected="${ad.getAdCondition().name() == 'used_good'}">Used - Good
+                                    </option>
+                                    <option value="Used - Fair"
+                                            th:selected="${ad.getAdCondition().name() == 'used_fair'}">Used - Fair
+                                    </option>
+                                    <option value="Used - Poor"
+                                            th:selected="${ad.getAdCondition().name() == 'used_poor'}">Used - Poor
+                                    </option>
+                                </select>
+                                <div id="conditionFeedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <div class="col-12 col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <div class="">
+                                <input type="text" class="form-control" name="city" id="city" th:value="${ad.city}">
+                                <div id="cityFeedback"></div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="state" class="form-label">State</label>
+                            <div class="">
+                                <select name="state" id="state" class=" form-select">
+                                    <option value="">Select a State</option>
+                                    <option th:each="state : ${allStates}" th:value="${state}"
+                                            th:text="${state}" th:selected="${ad.state == state}"></option>
+                                </select>
+                                <div id="stateFeedback"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-evenly flex-wrap">
+                        <div class="">
+                            <div class="mb-3 row form-custom">
+                                <p>
+                                    <a class="btn button-long" data-bs-toggle="collapse" href="#collapseExample"
+                                       role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Pick Categories
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="mb-3 row form-custom">
+                                <div>
+                                    <button class="btn button-long" id="uploadPhoto">Add a Photo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="">
+                            <div class="d-flex justify-content-evenly">
+                                <div>
+                                    <input type="radio" id="available" name="ad_status" value="available"
+                                           th:checked="${ad.getAdStatus().name()== 'available'}">
+                                    <label for="available" class="status-radio">Available</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="pending" name="ad_status" value="pending"
+                                           th:checked="${ad.getAdStatus().name()== 'pending'}">
+                                    <label for="pending" class="status-radio">Pending</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="sold" name="ad_status" value="sold"
+                                           th:checked="${ad.getAdStatus().name()== 'sold'}">
+                                    <label for="sold" class="status-radio">Sold</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse" id="collapseExample">
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary categoryButtons"
+                                        th:each="cat, index : ${categories}" th:attr="id=${index.index}"
+                                        th:value="${cat.id}"><span th:text="${cat.category}"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="oldPhotoSection" th:if="${!ad.getAdImages().isEmpty()}">
+                    <div class="col">
+                        <div>
+                            <p>Current Photos:</p>
+                            <div id="oldPhotoList" class="d-flex flex-wrap">
+
+                                <div class="d-flex flex-column align-items-center m-1"
+                                     th:each="img : ${ad.getAdImages()}" th:id="${'photoDiv' + img.id}">
+                                    <img alt="Uploaded Image" height="100" th:src="${img.getUrl()}">
+                                    <button class="removeOldPhoto button-remove" type="button" th:id="${img.id}"
+                                            onclick="removePhotoClick(this)">Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="photoSection">
+                    <div class="col">
+                        <div>
+                            <p>New Photos:</p>
+                            <div id="photoList" class="d-flex"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex justify-content-evenly flex-wrap">
+                            <button class="btn button-long mt-3" data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmationPrompt" type="button">Delete Listing
+                            </button>
+                            <button class="btn button-long mt-3" id="edit" type="button">Save Listing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Prompt Modal -->
+<div class="modal fade" id="deleteConfirmationPrompt" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationPromptLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this ad? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-evenly">
+                <button type="button" class="button-long" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="button-long" id="deleteConfirmBtn">Yes, delete it</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="deleteConfirmation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationLabel">Success!</h5>
+            </div>
+            <div class="modal-body">
+                <p>Your ad was successfully deleted! Now returning you to the main ads page.</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-evenly">
+                <button type="button" class="button-long" id="okayBtn">Okay!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:inline="javascript">
+    var categoryIds = /*[[${adCategoryIds}]]*/ 'default_value1';
+</script>
+<script src="/js/keys.js"></script>
+<script src="/js/editAd.js"></script>
+</body>
+</html>

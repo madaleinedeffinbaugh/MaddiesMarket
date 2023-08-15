@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/login_register.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+<div class="container">
+    <div class="wrapper-section">
+        <div class="register-section">
+            <div class="reg-container">
+                <h4 class="text-center">Register</h4>
+                <form th:action="@{/sign-up}" method="POST" th:object="${user}" id="signUpForm">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3 row form-custom">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <div class="">
+                                    <input type="text" class="form-control" name="first_name" id="first_name"
+                                           th:field="*{first_name}">
+                                    <div id="firstNameFeedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3 row form-custom">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <div class="">
+                                    <input type="text" class="form-control" name="last_name" id="last_name"
+                                           th:field="*{last_name}">
+                                    <div id="lastNameFeedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="">
+                            <input type="text" class="form-control" name="username" id="username"
+                                   th:field="*{username}">
+                            <div id="usernameFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="">
+                            <input type="text" class="form-control" name="email" id="email" th:field="*{email}">
+                            <div id="emailFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="password" class="form-label">Password</label>
+                        <div>
+                            <input type="password" class="form-control" name="password" id="password"
+                                   th:field="*{password}">
+                            <div id="passwordFeedback"></div>
+
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div>
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+                            <div id="confirmPasswordFeedback"></div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn button me-2" id="signUpBtn">Sign Up!</button>
+                    </div>
+                    <div class="sign-in">
+                        <a href="/login" class="sign-in">Already have an account? Sign in.</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    var usernameTaken = /*[[${usernameTaken}]]*/ 'default_value1';
+    var emailTaken = /*[[${emailTaken}]]*/ 'default_value2';
+</script>
+<script src="/js/register.js"></script>
+</body>
+</html>

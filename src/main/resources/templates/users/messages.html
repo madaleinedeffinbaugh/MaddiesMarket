@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/messages.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+<script>
+  (function(t,a,l,k,j,s){
+    s=a.createElement('script');s.async=1;s.src="https://cdn.talkjs.com/talk.js";a.head.appendChild(s)
+    ;k=t.Promise;t.Talk={v:3,ready:{then:function(f){if(k)return new k(function(r,e){l.push([f,r,e])});l
+                .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
+</script>
+
+<!-- container element in which TalkJS will display a chat UI -->
+<div id="talkjs-container" class="message-container">
+  <i>Loading chat...</i>
+</div>
+
+<script src="/js/keys.js"></script>
+<script th:inline="javascript">
+    let startUsername = /*[[${startUsername}]]*/ 'default_value1';
+    let startId = /*[[${startId}]]*/ 'default_value2';
+    let startEmail = /*[[${startEmail}]]*/ 'default_value2';
+    let otherUserName = /*[[${otherUsername}]]*/ 'default_value1';
+    let otherUserId = /*[[${otherId}]]*/ 'default_value2';
+    let otherUserEmail = /*[[${otherEmail}]]*/ 'default_value2';
+</script>
+<script>
+  Talk.ready.then(function () {
+    let me = new Talk.User({
+      id: startId, //start
+      name: startUsername,
+      email: startEmail,
+      // photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
+      // welcomeMessage: 'Hey there! How are you? :-)',
+    });
+    window.talkSession = new Talk.Session({
+      appId: TALK_JS_KEY,
+      me: me,
+    });
+    let other = new Talk.User({
+      id: otherUserId,
+      name: otherUserName,
+      email: otherUserEmail,
+      // photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+      // welcomeMessage: 'Hey, how can I help?',
+    });
+
+    let conversation = talkSession.getOrCreateConversation(
+            Talk.oneOnOneId(me, other)
+    );
+    conversation.setParticipant(me);
+    conversation.setParticipant(other);
+
+    let inbox = talkSession.createInbox({ selected: conversation });
+    inbox.mount(document.getElementById('talkjs-container'));
+  });
+</script>
+</body>
+</html>

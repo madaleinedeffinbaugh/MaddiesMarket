@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/create.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+
+<div class="listing-section-container">
+    <div class="listing-section">
+        <form id="listingForm" th:action="@{/submit-listing}" method="POST">
+            <input type="hidden" name="categories" id="categoriesInput">
+            <input type="hidden" name="photos" id="photosInput">
+            <h4 class="text-center">New Listing</h4>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="mb-3 row form-custom">
+                        <label for="title" class="form-label">Title</label>
+                        <div class="">
+                            <input type="text" class="form-control" name="title" id="title">
+                            <div id="titleFeedback"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <label for="description" class="form-label">Description</label>
+                        <div>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            <div id="descriptionFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="mb-3 row form-custom">
+                        <div class="col-12 col-md-6">
+                            <label for="price" class="form-label">Price</label>
+                            <div class="">
+                                <input type="number" class="form-control" name="price" id="price">
+                                <div id="priceFeedback"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="condition" class="form-label">Condition</label>
+                            <div class="">
+                                <select name="condition" id="condition" class=" form-select">
+                                    <option value="" selected>Select a Condition</option>
+                                    <option value="New">New</option>
+                                    <option value="Used - Like New">Used - Like New</option>
+                                    <option value="Used - Good">Used - Good</option>
+                                    <option value="Used - Fair">Used - Fair</option>
+                                    <option value="Used - Poor">Used - Poor</option>
+                                </select>
+                                <div id="conditionFeedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row form-custom">
+                        <div class="col-12 col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <div class="">
+                                <input type="text" class="form-control" name="city" id="city">
+                                <div id="cityFeedback"></div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="state" class="form-label">State</label>
+                            <div class="">
+                                <select name="state" id="state" class=" form-select">
+                                    <option value="" selected>Select a State</option>
+                                    <option th:each="state : ${allStates}" th:value="${state}"
+                                            th:text="${state}"></option>
+                                </select>
+                                <div id="stateFeedback"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-evenly flex-wrap">
+                        <div class="">
+                            <div class="mb-3 row form-custom">
+                                <p>
+                                    <a class="btn button-long" data-bs-toggle="collapse" href="#collapseExample"
+                                       role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Pick Categories
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="mb-3 row form-custom">
+                                <div>
+                                    <button class="btn button-long" id="uploadPhoto">Add a Photo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse" id="collapseExample">
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary categoryButtons"
+                                        th:each="cat, index : ${categories}" th:attr="id=${index.index}"
+                                        th:value="${cat.id}"><span th:text="${cat.category}"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-none" id="photoSection">
+                    <div class="col">
+                        <div>
+                            <p>Your Photos:</p>
+                            <div id="photoList" class="d-flex flex-wrap"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-evenly flex-wrap">
+                    <div class="mb-3 row form-custom">
+                        <div class="col-12 col-md-6">
+                            <div class="m-3 row form-custom">
+                                <div class="col-12">
+                                    <div class="">
+                                        <button class="btn button-long" id="create">Create Listing</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script src="/js/keys.js"></script>
+<script src="/js/create.js"></script>
+</html>

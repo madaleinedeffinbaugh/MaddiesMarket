@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xlms:th="http://www.thymeleaf.org" xmlns:xlms="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>navbar</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Maddie's Market</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/ads">View Ads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/create-listing">Create Listing</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav  mb-2 mb-lg-0 text-center">
+                <li class="nav-item">
+                    <div th:if="${#authentication.principal == 'anonymousUser'}">
+                        <a class="nav-link active" aria-current="page" href="/sign-up">Register</a>
+                    </div>
+                    <div th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:if="${#authentication.principal.id == 0}">
+                            <a class="nav-link active" aria-current="page" href="/sign-up">Register</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div th:if="${#authentication.principal == 'anonymousUser'}">
+                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                    </div>
+                    <div th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:if="${#authentication.principal.id == 0}">
+                            <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <div th:if="${#authentication.principal != 'anonymousUser'}">
+                        <div th:if="${#authentication.principal.id != 0}">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Account
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown2">
+                                <li><a class="dropdown-item" href="/profile">Your Ads</a></li>
+                                <li><a class="dropdown-item" href="/messages">Messages</a></li>
+                                <li><a class="dropdown-item" href="/editProfile">Update Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#" id="logout-link">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <form th:action="@{/logout}" th:method="post" id="logoutForm">
+    </form>
+    <script>
+        const link = document.querySelector("#logout-link");
+        if (link !== null) {
+            link.addEventListener("click", function (event) {
+                document.getElementById("logoutForm").submit();
+            });
+        }
+    </script>
+</nav>
+
+
+</body>
+</html>

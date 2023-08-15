@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="eng">
+<head th:insert="partials/header :: head"/>
+<link rel="stylesheet" th:href="@{/css/profile.css}">
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+<div class="container">
+    <h1 class="text-center mt-4">Welcome, <span th:text="${user.first_name}"></span></h1>
+    <h4 class="text-center">All your ads, conveniently in one place</h4>
+
+    <div class="mt-5">
+        <h3 class="text-center">Available Ads Listed</h3>
+        <h4 class="text-center" th:if="${user.userHasAvailableAds() == false}">You have no available ads</h4>
+        <div class="d-flex flex-wrap">
+            <div th:each="ad : ${user.getUserAds()}"
+                 th:if="${(ad.getAdStatus().name() == 'available') && ad.getArchived() == false}"
+                 class="card m-2 clickable-div" style="width: 250px;" onclick="handleClick(this)" th:attr="id=${ad.id}">
+                <img th:src="${ad.getMainPhoto()}" class="card-img-top" alt="..." width="200"
+                     height="200">
+                <div class="card-body">
+                    <h5 class="card-text" th:text="${ad.title}"></h5>
+                    <p class="card-text my-0"><strong>$<span th:text="${ad.getFormattedPrice()}"></span></strong></p>
+                    <p class="card-text my-0"><small><span th:text="${ad.getTruncatedDescription()}"></span></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-center">Pending Ads Listed</h3>
+        <h4 class="text-center" th:if="${user.userHasPendingAds() == false}">You have no pending ads</h4>
+        <div class="d-flex flex-wrap">
+            <div th:each="ad : ${user.getUserAds()}"
+                 th:if="${(ad.getAdStatus().name() == 'pending') && ad.getArchived() == false}"
+                 class="card m-2 clickable-div" style="width: 250px;" onclick="handleClick(this)" th:attr="id=${ad.id}">
+                <img th:src="${ad.getMainPhoto()}" class="card-img-top" alt="..." width="200"
+                     height="200">
+                <div class="card-body">
+                    <h5 class="card-text" th:text="${ad.title}"></h5>
+                    <p class="card-text my-0"><strong>$<span th:text="${ad.getFormattedPrice()}"></span></strong></p>
+                    <p class="card-text my-0"><small><span th:text="${ad.getTruncatedDescription()}"></span></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-center">Sold Ads</h3>
+        <h4 class="text-center" th:if="${user.userHasSoldAds() == false}">You have no ads sold yet :(</h4>
+        <div class="d-flex flex-wrap">
+            <div th:each="ad : ${user.getUserAds()}"
+                 th:if="${(ad.getAdStatus().name() == 'sold') && ad.getArchived() == false}"
+                 class="card m-2 clickable-div" style="width: 250px;" onclick="handleClick(this)" th:attr="id=${ad.id}">
+                <img th:src="${ad.getMainPhoto()}" class="card-img-top" alt="..." width="200"
+                     height="200">
+                <div class="card-body">
+                    <h5 class="card-text" th:text="${ad.title}"></h5>
+                    <p class="card-text my-0"><strong>$<span th:text="${ad.getFormattedPrice()}"></span></strong></p>
+                    <p class="card-text my-0"><small><span th:text="${ad.getTruncatedDescription()}"></span></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
