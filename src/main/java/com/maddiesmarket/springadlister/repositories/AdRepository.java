@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Long> {
-    List<Ad> findByArchivedFalse();
+
+    List<Ad> findByArchivedFalseAndAdStatusNot(Ad.adStatus adStatus);
 
 }
