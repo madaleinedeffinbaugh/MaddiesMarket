@@ -1,0 +1,32 @@
+.image-container {
+    max-width: 100%;
+}
+
+.responsive-image {
+    /*min-width: 100%;*/
+    /*max-width: 100%;*/
+    /*height: auto;*/
+}
+
+.alt-background {
+    background-color: #c9e9f5;
+}
+
+.title {
+    color: white;
+    z-index: 5;
+}
+
+.title-bg {
+    margin: 0;
+    padding: 6em 0;
+    background-image: url("../img/pexels-dana-tentis-370799.jpg");
+    z-index: -1;
+}
+
+.button {
+    background-color: #5558a5;
+    color: white;
+    width: 8em;
+}
+

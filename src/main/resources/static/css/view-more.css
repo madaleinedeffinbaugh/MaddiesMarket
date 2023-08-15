@@ -1,0 +1,131 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    background: linear-gradient(to right,#31c5f3, #5558a5);
+}
+
+
+.carousels {
+    /*width: 60vw;*/
+    height: 80vh;
+    position: relative;
+    margin-top: 5vh;
+    box-shadow: 0 10px 20px black;
+}
+
+.carousels > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: 200ms opacity ease-in-out;
+    transition-delay: 200ms;
+}
+
+
+.slide > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.slide[data-active] {
+    opacity: 1;
+    z-index: 1;
+    transition-delay: 0ms;
+}
+
+.carousels-button {
+    position: absolute;
+    z-index: 2;
+    background: none;
+    border: none;
+    font-size: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    border-radius: 25rem;
+    padding: 0 .5rem;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.carousels-button:hover,
+.carousels-button:focus {
+    color: white;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.carousels-button:focus {
+    outline: 1px solid black;
+}
+
+.carousels-button.prev {
+    left: 1rem;
+}
+
+.carousels-button.next {
+    right: 1rem;
+}
+
+
+.contentContainer {
+    max-width: 100vw;
+}
+
+.category {
+    background-color: #2e8ab7;
+    color: white;
+}
+
+.keyWords {
+    color: #212b43;
+}
+
+.messageBtn {
+    background-color: #5558a5;
+    color: white;
+}
+
+.status-available {
+    color: green;
+}
+
+.status-pending {
+    color: orange;
+}
+
+.status-sold {
+    color: red;
+}
+
+.ad-details {
+    padding: 2em;
+    margin-top: 5vh;
+    background-color: white;
+    border-radius: 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media screen and (min-width: 990px) {
+    .ad-details {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 989px) {
+    .ad-details {
+        width: calc(100% - 10vh);
+    }
+}

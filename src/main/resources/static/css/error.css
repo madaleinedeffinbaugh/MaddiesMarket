@@ -1,0 +1,18 @@
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    background: linear-gradient(to right,#31c5f3, #5558a5);
+
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+.error-link {
+    color: #212b43;
+}

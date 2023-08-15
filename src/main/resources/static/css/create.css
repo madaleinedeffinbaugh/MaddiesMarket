@@ -1,0 +1,94 @@
+body {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+    background: linear-gradient(to right,#31c5f3, #5558a5);
+
+}
+
+.listing-section-container {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    min-height: 75vh; /* Ensure full viewport height */
+    /*max-width: 1275px;*/
+}
+
+.button {
+    background-color: #5558a5;
+    color: white;
+    width: 8em;
+}
+
+/*.title-input {*/
+/*    max-width: 410px;*/
+/*}*/
+
+.button-long {
+    background-color: #5558a5;
+    color: white;
+    width: 10em;
+}
+
+.listing-section {
+    /*position: absolute; !* or absolute *!*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+
+    background-color: white;
+    padding: 2em;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 2em 5em;
+}
+
+/*.listing-section {*/
+/*    background-color: white;*/
+/*    padding: 2em;*/
+/*    border-radius: 15px; !* Use a fixed pixel value *!*/
+/*    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+/*}*/
+
+.categoryButtons {
+    border-radius: 25px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+/*@media screen and (min-width: 1200px) {*/
+
+/*    .searchSection {*/
+/*        padding: 3em 10em;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 769px) and (max-width: 1199px) {*/
+/*    .searchSection {*/
+/*        padding: 3em 6em;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 576px) and (max-width: 768px) {*/
+/*    .searchSection {*/
+/*        padding: 3em 2em;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 391px) and (max-width: 575px) {*/
+/*    .searchSection {*/
+/*        padding: 2em 1.5em;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (max-width: 390px) {*/
+/*    .searchSection {*/
+/*        padding: 2em 1.5em;*/
+/*    }*/
+/*}*/
+
+.button-remove {
+    border: none;
+    background: transparent;
+}
